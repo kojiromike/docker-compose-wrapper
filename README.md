@@ -9,3 +9,19 @@ The Fig Within
 ## How to use it
 
 Source the `figwrapper` script from your .bashrc. Then, use `fig` commands like usual.
+
+## Demo
+
+```bash
+$ . figwrapper
+$ type fig
+fig is a function
+fig () 
+{ 
+    docker run --rm --privileged=true -v /var/run/docker.sock:/var/run/docker.sock -v "$PWD":/fig -ti kojiromike/fig "$@"
+}
+$ fig run --rm test
+I am a very busy box
+Removing fig_test_run_1...
+```
+
