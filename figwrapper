@@ -1,0 +1,13 @@
+#!/bin/bash
+
+##
+# Wrapper for running fig while having only Docker
+fig() {
+    docker run --rm \
+               --privileged=true \
+               -v /var/run/docker.sock:/var/run/docker.sock \
+               -v "$PWD":/fig \
+               -ti \
+               kojiromike/fig \
+               "$@"
+}
