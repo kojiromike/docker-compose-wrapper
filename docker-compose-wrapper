@@ -27,7 +27,7 @@ docker-compose() {
                --volume "${PWD}:${PWD}" \
                --volume /var/run/docker.sock:/var/run/docker.sock \
                --workdir "$PWD" \
-               kojiromike/dockercomposewrapper \
+               kojiromike/docker-compose-wrapper \
                -p "$project" \
                "${args[@]}"
 }

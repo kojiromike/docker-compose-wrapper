@@ -1,2 +1,2 @@
 build: Dockerfile
-	docker build -t kojiromike/dockercomposewrapper - < Dockerfile
+	docker build -t kojiromike/docker-compose-wrapper - < Dockerfile

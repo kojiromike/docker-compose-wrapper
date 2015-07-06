@@ -8,11 +8,11 @@ Use Docker Compose without installing it.
 
 ## How to use it
 
-Source the `dockercomposewrapper` script from your .bashrc. Then, use `docker-compose` commands like usual.
+Source the `docker-compose-wrapper` script from your .bashrc. Then, use `docker-compose` commands like usual.
 
 ## Demo
 
-    $ . dockercomposewrapper
+    $ . docker-compose-wrapper
     $ type docker-compose
     docker-compose is a function
     docker-compose ()
