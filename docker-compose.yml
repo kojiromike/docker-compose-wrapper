@@ -1,0 +1,19 @@
+dvc:
+    image: busybox
+    command: echo "Docker Volume Container"
+    volumes:
+        - /test/dvc
+testin:
+    image: busybox
+    volumes:
+        - /compose:/test/vol
+    volumes_from:
+        - dvc
+    command: sh -c 'rm -f /test/dvc/data /test/vol/data && dd if=/dev/urandom bs=1M count=1 | tee /test/dvc/data > /test/vol/data'
+testout:
+    image: busybox
+    volumes:
+        - .:/test/vol
+    volumes_from:
+        - dvc
+    command: sh -c 'sleep 10 && du -hs /test/dvc/data /test/vol/data'

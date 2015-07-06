@@ -1,4 +1,0 @@
-test:
-    image: busybox
-    command: echo "I am a very busy box"
-

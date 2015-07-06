@@ -1,0 +1,30 @@
+#!/bin/bash
+
+##
+# Wrapper for running fig while having only Docker
+docker-compose() {
+    local project
+    local -a args=( "$@" )
+    local i
+    for i in "${!args[@]}"; do
+        case "${args[i]}" in
+            -p|--project-name)
+                project="${args[i+1]}"
+                unset args[i] args[i+1]
+                break
+                ;;
+        esac
+    done
+    project="${project:-$PWD}"      # Default to PWD
+    project="${project##*/}"        # basename
+    project="${project,,}"          # lowercase
+    project="${project//[^a-z0-9]}" # keep only alnum
+    docker run --rm \
+               --privileged=true \
+               -v /var/run/docker.sock:/var/run/docker.sock \
+               -v "$PWD":/compose \
+               -ti \
+               kojiromike/dockercomposewrapper \
+               -p "$project" \
+               "${args[@]}"
+}
