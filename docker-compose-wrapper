@@ -35,7 +35,7 @@ docker-compose() {
     fi
 
     docker run "${docker_args[@]}" \
-               kojiromike/docker-compose-wrapper \
+               kojiromike/docker-compose-wrapper:1.2 \
                -p "$project" \
                "${args[@]}"
 }
