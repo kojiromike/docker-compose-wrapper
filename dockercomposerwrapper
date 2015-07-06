@@ -19,11 +19,14 @@ docker-compose() {
     project="${project##*/}"        # basename
     project="${project,,}"          # lowercase
     project="${project//[^a-z0-9]}" # keep only alnum
-    docker run --rm \
-               --privileged=true \
-               -v /var/run/docker.sock:/var/run/docker.sock \
-               -v "$PWD":/compose \
-               -ti \
+    docker run --env "OUTER_PWD=$PWD" \
+               --interactive \
+               --privileged \
+               --rm \
+               --tty \
+               --volume "${PWD}:${PWD}" \
+               --volume /var/run/docker.sock:/var/run/docker.sock \
+               --workdir "$PWD" \
                kojiromike/dockercomposewrapper \
                -p "$project" \
                "${args[@]}"
