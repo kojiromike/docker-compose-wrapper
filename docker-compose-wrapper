@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ##
 # Wrapper for running fig while having only Docker
@@ -39,3 +39,5 @@ docker-compose() {
                -p "$project" \
                "${args[@]}"
 }
+
+[[ $0 = *docker-compose-wrapper ]] && docker-compose "$@"
