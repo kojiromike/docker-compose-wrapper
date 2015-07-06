@@ -5,6 +5,7 @@
 docker-compose() {
     local project
     local -a args=( "$@" )
+    local -a docker_args=()
     local i
     for i in "${!args[@]}"; do
         case "${args[i]}" in
@@ -19,14 +20,22 @@ docker-compose() {
     project="${project##*/}"        # basename
     project="${project,,}"          # lowercase
     project="${project//[^a-z0-9]}" # keep only alnum
-    docker run --env "OUTER_PWD=$PWD" \
-               --interactive \
-               --privileged \
-               --rm \
-               --tty \
-               --volume "${PWD}:${PWD}" \
-               --volume /var/run/docker.sock:/var/run/docker.sock \
-               --workdir "$PWD" \
+    docker_args=(
+        --env "OUTER_PWD=$PWD"
+        --privileged
+        --rm
+        --volume "${PWD}:${PWD}"
+        --volume /var/run/docker.sock:/var/run/docker.sock
+        --workdir "$PWD"
+    )
+    if [[ -t 0 ]]; then
+        docker_args+=( --interactive )
+    fi
+    if [[ -t 1 ]]; then
+        docker_args+=( --tty )
+    fi
+
+    docker run "${docker_args[@]}" \
                kojiromike/docker-compose-wrapper \
                -p "$project" \
                "${args[@]}"
