@@ -21,7 +21,6 @@ docker-compose() {
     project="${project,,}"          # lowercase
     project="${project//[^a-z0-9]}" # keep only alnum
     docker_args=(
-        --env "OUTER_PWD=$PWD"
         --privileged
         --rm
         --volume "${PWD}:${PWD}"
