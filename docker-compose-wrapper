@@ -1,14 +1,21 @@
 #!/usr/bin/env bash
 
 ##
-# Wrapper for running fig while having only Docker
+# Wrapper for running Docker Compose from
+# within a container itself.
 docker-compose() {
-    local project
+    local project="$COMPOSE_PROJECT_NAME"
+    local file="$COMPOSE_FILE"
     local -a args=( "$@" )
     local -a docker_args=()
     local i
     for i in "${!args[@]}"; do
         case "${args[i]}" in
+            -f|--file)
+                file="${args[i+1]}"
+                unset args[i] args[i+1]
+                break
+                ;;
             -p|--project-name)
                 project="${args[i+1]}"
                 unset args[i] args[i+1]
@@ -33,7 +40,6 @@ docker-compose() {
     if [[ -t 1 ]]; then
         docker_args+=( --tty )
     fi
-
     docker run "${docker_args[@]}" \
                kojiromike/docker-compose-wrapper \
                -p "$project" \
