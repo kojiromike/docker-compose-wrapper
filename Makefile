@@ -1,4 +1,5 @@
 tests: build test1 test2 test3 test4 test5
+	rm data
 
 test1:
 	./docker-compose-wrapper up && ./docker-compose-wrapper rm -fv
