@@ -16,4 +16,4 @@ test5:
 	cp docker-compose.yml bar.yml && COMPOSE_FILE=bar.yml ./docker-compose-wrapper up && COMPOSE_FILE=bar.yml ./docker-compose-wrapper rm -fv && rm bar.yml
 
 build: no-context/Dockerfile
-	cd no-context && docker build -t kojiromike/docker-compose-wrapper .
+	cd no-context && docker build -t kojiromike/docker-compose-wrapper:1.2 .
